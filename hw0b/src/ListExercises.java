@@ -1,3 +1,6 @@
+import edu.princeton.cs.algs4.In;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListExercises {
@@ -5,25 +8,49 @@ public class ListExercises {
     /** Returns the total sum in a list of integers */
 	public static int sum(List<Integer> L) {
         // TODO: Fill in this function.
-        return 0;
+        int sum = 0;
+        for (int x : L) {
+            sum += x;
+        }
+        return sum;
     }
 
     /** Returns a list containing the even numbers of the given list */
     public static List<Integer> evens(List<Integer> L) {
         // TODO: Fill in this function.
-        return null;
+        List<Integer> l = new ArrayList<>();
+        for (int x : L){
+            if (x % 2 == 0){
+            l.add(x);
+            }
+        }
+        return l;
     }
 
     /** Returns a list containing the common item of the two given lists */
     public static List<Integer> common(List<Integer> L1, List<Integer> L2) {
         // TODO: Fill in this function.
-        return null;
+        List<Integer> res = new ArrayList<>();
+        for (int x : L1){
+            if (L2.contains(x)){
+                res.add(x);
+            }
+        }
+        return res;
     }
 
 
     /** Returns the number of occurrences of the given character in a list of strings. */
     public static int countOccurrencesOfC(List<String> words, char c) {
         // TODO: Fill in this function.
-        return 0;
+        int count = 0;
+        for (String x : words){
+            for (char letter : x.toCharArray()){
+                if (letter == c){
+                    count += 1;
+                }
+            }
+        }
+        return count;
     }
 }

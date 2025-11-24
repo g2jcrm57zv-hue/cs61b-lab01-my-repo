@@ -1,5 +1,8 @@
+import org.antlr.v4.runtime.tree.Tree;
+
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MapExercises {
     /** Returns a map from every lower case letter to the number corresponding to that letter, where 'a' is
@@ -7,7 +10,13 @@ public class MapExercises {
      */
     public static Map<Character, Integer> letterToNum() {
         // TODO: Fill in this function.
-        return null;
+        Map<Character, Integer> res = new TreeMap<>();
+        int i = 1;
+        for (char c = 'a'; c <= 'z'; c++){
+            res.put(c, i);
+            i++;
+        }
+        return res;
     }
 
     /** Returns a map from the integers in the list to their squares. For example, if the input list
@@ -15,12 +24,24 @@ public class MapExercises {
      */
     public static Map<Integer, Integer> squares(List<Integer> nums) {
         // TODO: Fill in this function.
-        return null;
+        Map<Integer, Integer> res = new TreeMap<>();
+        for(int i : nums) {
+            res.put(i, i*i);
+        }
+        return res;
     }
 
     /** Returns a map of the counts of all words that appear in a list of words. */
     public static Map<String, Integer> countWords(List<String> words) {
         // TODO: Fill in this function.
-        return null;
+        Map<String, Integer> res = new TreeMap<>();
+        for(String i : words){
+            if(res.containsKey(i)){
+                res.put(i, res.get(i) + 1);
+            }else{
+                res.put(i, 1);
+            }
+        }
+        return res;
     }
 }
