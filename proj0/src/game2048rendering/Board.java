@@ -7,9 +7,9 @@ import java.util.Formatter;
  * @author hug
  */
 public class Board {
-    /** Current contents of the board. */
+    /** 棋盘的当前内容。 */
     private final Tile[][] _values;
-    /** Side that the board currently views as north. */
+    /** 当前棋盘视作“北”（上方）的那一边（视角）。 */
     private Side _viewPerspective;
 
     public Board(int size) {
@@ -17,13 +17,15 @@ public class Board {
         _viewPerspective = Side.NORTH;
     }
 
-    /** Shifts the view of the board such that the board behaves as if side S is north. */
+    /** 切换棋盘的视角，使得棋盘的表现就像 S 边是北（上方）一样。 */
     public void setViewingPerspective(Side s) {
         _viewPerspective = s;
     }
 
-    /** Create a board where RAWVALUES hold the values of the tiles on the board 
-     * (0 is null) with a current score of SCORE and the viewing perspective set to north. */
+    /**
+     * 创建一个棋盘，其中 RAWVALUES 保存了棋盘上方块的值
+     * （0 表示 null），并将当前视角设置为北。
+     */
     public Board(int[][] rawValues) {
         int size = rawValues.length;
         _values = new Tile[size][size];
@@ -42,42 +44,47 @@ public class Board {
         }
     }
 
-    /** Returns the size of the board. */
+    /** 返回棋盘的大小。 */
     public int size() {
         return _values.length;
     }
 
-    /** Return the current Tile at (x, y), when sitting with the board
-     *  oriented so that SIDE is at the top (farthest) from you. */
+    /**
+     * 当棋盘方向调整为 SIDE 在顶部（离你最远）时，
+     * 返回位于 (x, y) 的当前 Tile。
+     */
     private Tile vtile(int x, int y, Side side) {
         return _values[side.x(x, y, size())][side.y(x, y, size())];
     }
 
-    /** Return the current Tile at (x, y), where 0 <= x < size(),
-     *  0 <= y < size(). Returns null if there is no tile there. */
+    /**
+     * 返回位于 (x, y) 的当前 Tile，其中 0 <= x < size(),
+     * 0 <= y < size()。如果那里没有方块，则返回 null。
+     */
     public Tile tile(int x, int y) {
         return vtile(x, y, _viewPerspective);
     }
 
-    /** Clear the board to empty and reset the score. */
+    /** 清空棋盘使其为空，并重置分数。 */
     public void clear() {
         for (Tile[] column : _values) {
             Arrays.fill(column, null);
         }
     }
 
-    /** Adds the tile T to the board */
+    /** 将方块 T 添加到棋盘上。 */
     public void addTile(Tile t) {
         _values[t.x()][t.y()] = t;
     }
 
-    
-    /** Places the Tile TILE at column x, y y where x and y are
-     * treated as coordinates with respect to the current viewPerspective.
+
+    /**
+     * 将方块 TILE 放置在列 x，行 y 的位置，其中 x 和 y 是
+     * 相对于当前 viewPerspective（视角）的坐标。
      *
-     * (0, 0) is bottom-left corner.
+     * (0, 0) 是左下角。
      *
-     * If the move is a merge, sets the tile's merged status to true.
+     * 如果这次移动导致了合并，将方块的 merged 状态设为 true。
      * */
     public void move(int x, int y, Tile tile) {
         int px = _viewPerspective.x(x, y, size());
@@ -86,8 +93,8 @@ public class Board {
         Tile tile1 = vtile(x, y, _viewPerspective);
         _values[tile.x()][tile.y()] = null;
 
-        // Move or merge the tile. It is important to call setNext
-        // on the old tile(s) so they can be animated into position
+        // 移动或合并方块。重要的是要在旧方块上调用 setNext，
+        // 以便它们可以通过动画移动到位置上
         Tile next;
         if (tile1 == null) {
             next = Tile.create(tile.value(), px, py);
@@ -104,7 +111,7 @@ public class Board {
         _values[px][py] = next;
     }
 
-    /** Resets all the merged booleans to false for every tile on the board. */
+    /** 将棋盘上每个方块的所有 merged 布尔值重置为 false。 */
     public void resetMerged() {
         for (int x = 0; x < size(); x += 1) {
             for (int y = 0; y < size(); y += 1) {
@@ -115,7 +122,7 @@ public class Board {
         }
     }
 
-    /** Returns the board as a string, used for debugging. */
+    /** 以字符串形式返回棋盘，用于调试。 */
     @Override
     public String toString() {
         Formatter out = new Formatter();
