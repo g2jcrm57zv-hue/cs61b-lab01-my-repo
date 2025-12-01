@@ -112,6 +112,13 @@ public class Model {
      */
     public boolean maxTileExists() {
         // TODO: 任务 3. 填写此函数。
+        for (int x = 0; x < board.size(); x++) {
+            for (int y = 0; y < board.size(); y++) {
+                if (board.tile(x, y) != null && board.tile(x, y).value() == MAX_PIECE){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
