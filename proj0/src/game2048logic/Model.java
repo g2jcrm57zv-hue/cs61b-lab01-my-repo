@@ -130,6 +130,33 @@ public class Model {
      */
     public boolean atLeastOneMoveExists() {
         // TODO: 填写此函数。
+        int size = board.size();
+
+        // 存在一个空格的情况：
+        if (this.emptySpaceExists()){
+            return true;
+        }
+
+        // 存在两个相同数相邻的情况：
+        for (int x = 0; x < size; x++) {
+            for (int y = 0; y < size; y++) {
+                int val = board.tile(x, y).value();
+                // 检查当前值是否与右侧值相等
+                if (x < size - 1){
+                    int rightVal = board.tile(x + 1, y).value();
+                    if (val == rightVal){
+                        return true;
+                    }
+                }
+                // 检查当前值是否与上侧值相等
+                if (y < size - 1){
+                    int upVal = board.tile(x, y + 1).value();
+                    if (val == upVal){
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -146,10 +173,36 @@ public class Model {
      */
     public void moveTileUpAsFarAsPossible(int x, int y) {
         Tile currTile = board.tile(x, y);
+        
+        if (currTile == null){
+            return;
+        }
+        
         int myValue = currTile.value();
         int targetY = y;
 
-        // TODO: 任务 5, 6, 和 10. 填写此函数。
+        // 检测当前节点上方有没有空格:
+        for (int i = y + 1; i < board.size(); i++) {
+
+            Tile upTile = board.tile(x, i); // 当前节点上方的节点
+
+            if (upTile == null){ // 如果是空格(可移动的情况)
+                targetY = i;// 把当前节点移动到上方
+            }
+            else{ // 如果遇到的是非空位,则分为两种情况,一种分数相等,一种分数不相等.
+                // 第一种情况:
+                if (upTile.value() == myValue && !currTile.wasMerged() && !upTile.wasMerged()){ // 如果分数相等,并且二者皆未合并过
+                    targetY = i; // 合并,但暂时不更新分数.
+                    this.score += myValue * 2;
+                    break;
+                }else { // 第二种情况,有空位且分数不相等:
+                    break; // 遇到障碍物,不再移动
+                }
+            }
+        }
+        if (targetY != y) {
+            board.move(x, targetY, currTile);
+        }
     }
 
     /**
@@ -159,10 +212,18 @@ public class Model {
      * */
     public void tiltColumn(int x) {
         // TODO: 任务 7. 填写此函数。
+        for (int i = board.size() - 1; i >= 0; i--) {
+            moveTileUpAsFarAsPossible(x, i);
+        }
     }
 
     public void tilt(Side side) {
         // TODO: 任务 8 和 9. 填写此函数。
+        board.setViewingPerspective(side);
+        for (int i = board.size() - 1; i >= 0; i--) {
+            tiltColumn(i);
+        }
+        board.setViewingPerspective(Side.NORTH); // 最后将方向调整为北;
     }
 
     /**
