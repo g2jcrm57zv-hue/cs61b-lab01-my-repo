@@ -1,78 +1,78 @@
 import java.util.List;
 
 /**
- * Created by hug on 2/4/2017. Methods are provided in the suggested order
- * that they should be completed.
+ * 由 hug 创建于 2017/2/4。
+ * 方法已按建议的完成顺序排列。
  */
 public interface Deque61B<T> {
 
     /**
-     * Add {@code x} to the front of the deque. Assumes {@code x} is never null.
+     * 将 {@code x} 添加到双端队列的头部。假设 {@code x} 永不为 null。
      *
-     * @param x item to add
+     * @param x 要添加的元素
      */
     void addFirst(T x);
 
     /**
-     * Add {@code x} to the back of the deque. Assumes {@code x} is never null.
+     * 将 {@code x} 添加到双端队列的尾部。假设 {@code x} 永不为 null。
      *
-     * @param x item to add
+     * @param x 要添加的元素
      */
     void addLast(T x);
 
     /**
-     * Returns a List copy of the deque. Does not alter the deque.
+     * 返回该双端队列的 List 副本。不会修改原双端队列。
      *
-     * @return a new list copy of the deque.
+     * @return 该双端队列的一个新 List 副本。
      */
     List<T> toList();
 
     /**
-     * Returns if the deque is empty. Does not alter the deque.
+     * 返回双端队列是否为空。不会修改原双端队列。
      *
-     * @return {@code true} if the deque has no elements, {@code false} otherwise.
+     * @return 如果双端队列没有元素则返回 {@code true}，否则返回 {@code false}。
      */
     boolean isEmpty();
 
     /**
-     * Returns the size of the deque. Does not alter the deque.
+     * 返回双端队列的大小。不会修改原双端队列。
      *
-     * @return the number of items in the deque.
+     * @return 双端队列中的元素数量。
      */
     int size();
 
     /**
-     * Remove and return the element at the front of the deque, if it exists.
+     * 移除并返回双端队列头部的元素（如果存在）。
      *
-     * @return removed element, otherwise {@code null}.
+     * @return 被移除的元素，否则返回 {@code null}。
      */
     T removeFirst();
 
     /**
-     * Remove and return the element at the back of the deque, if it exists.
+     * 移除并返回双端队列尾部的元素（如果存在）。
      *
-     * @return removed element, otherwise {@code null}.
+     * @return 被移除的元素，否则返回 {@code null}。
      */
     T removeLast();
 
     /**
-     * The Deque61B abstract data type does not typically have a get method,
-     * but we've included this extra operation to provide you with some
-     * extra programming practice. Gets the element, iteratively. Returns
-     * null if index is out of bounds. Does not alter the deque.
+     * Deque61B 抽象数据类型通常不包含 get 方法，
+     * 但我们加入了这个额外操作，旨在为你提供更多的编程练习。
+     * 以【迭代】方式获取元素。如果索引越界则返回 null。
+     * 不会修改原双端队列。
      *
-     * @param index index to get
-     * @return element at {@code index} in the deque
+     * @param index 要获取的索引
+     * @return 双端队列中 {@code index} 处的元素
      */
     T get(int index);
 
     /**
-     * This method technically shouldn't be in the interface, but it's here
-     * to make testing nice. Gets an element, recursively. Returns null if
-     * index is out of bounds. Does not alter the deque.
+     * 从技术上讲，此方法不应出现在接口中，但为了方便测试而将其放在此处。
+     * 以【递归】方式获取元素。如果索引越界则返回 null。
+     * 不会修改原双端队列。
      *
-     * @param index index to get
-     * @return element at {@code index} in the deque
+     * @param index 要获取的索引
+     * @return 双端队列中 {@code index} 处的元素
      */
     T getRecursive(int index);
 }
