@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.ArrayList;
 import static java.lang.Math.floorMod;
 
 public class ArrayDeque61B<T> implements Deque61B<T> {
@@ -31,7 +32,11 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public List<T> toList() {
-        return List.of();
+        List<T> returnList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            returnList.add(this.get(i));
+        }
+        return returnList;
     }
 
     @Override
