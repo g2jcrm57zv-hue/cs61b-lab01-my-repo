@@ -51,12 +51,38 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
 
     @Override
     public T removeFirst() {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+
+        int actualIndex = floorMod(nextFirst + 1, items.length);
+        T removedItem = items[actualIndex];
+
+        items[actualIndex] = null;
+
+        nextFirst = actualIndex;
+
+        size -= 1;
+
+        return removedItem;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+
+        int actualIndex = floorMod(nextLast - 1, items.length);
+        T removedItem = items[actualIndex];
+
+        items[actualIndex] = null;
+
+        nextLast = actualIndex;
+
+        size -= 1;
+
+        return removedItem;
     }
 
     @Override
