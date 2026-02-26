@@ -151,6 +151,11 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        return this.helperEquals(obj);
+    }
+
+    @Override
     public Iterator<T> iterator() {
         return new LinkedListIterator();
     }

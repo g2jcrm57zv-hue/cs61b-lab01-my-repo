@@ -78,4 +78,36 @@ public interface Deque61B<T> extends Iterable<T> {
     T getRecursive(int index);
 
     Iterator<T> iterator();
+
+    default boolean helperEquals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Deque61B<?>)) {
+            return false;
+        }
+
+        Deque61B<?> other = (Deque61B<?>) o;
+
+        if (this.size() != other.size()) {
+            return false;
+        }
+
+        Iterator<T> myIterator = this.iterator();
+        Iterator<?> otherIterator = other.iterator();
+
+        while (myIterator.hasNext()) {
+            T myItem = myIterator.next();
+            Object otherItem = otherIterator.next();
+
+            if (myItem == null) {
+                if (otherItem != null) return false;
+            } else {
+                if (!myItem.equals(otherItem)) return false;
+            }
+        }
+
+        return true;
+    }
 }
