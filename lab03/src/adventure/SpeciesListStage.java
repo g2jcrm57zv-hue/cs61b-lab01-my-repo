@@ -90,7 +90,15 @@ public class SpeciesListStage implements AdventureStage {
      * Computes the similarity of two lists. If there is similarity, return 1.
      * If there is no similarity, it should return 0.
      */
-    public static int arraySimilarity(List<String> listOne, List<String> listTwo) {
+
+    // 1. 返回值必须是 double，否则 1/2 永远等于 0
+    public static double arraySimilarity(List<String> listOne, List<String> listTwo) {
+
+        // 2. 特殊情况处理：如果是空列表，直接算满分（1.0），这样最安全
+        if (listOne.isEmpty()) {
+            return 1.0;
+        }
+
         List<String> copy = new ArrayList<>(listOne);
         int similarObjects = 0;
         for (String o : listTwo) {
@@ -99,6 +107,8 @@ public class SpeciesListStage implements AdventureStage {
                 copy.remove(o);
             }
         }
-        return similarObjects / listOne.size();
+
+        // 3. 强制转换成 double 再除
+        return (double) similarObjects / listOne.size();
     }
 }
