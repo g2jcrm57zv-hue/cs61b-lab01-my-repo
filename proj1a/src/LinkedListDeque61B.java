@@ -1,5 +1,7 @@
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 
 public class LinkedListDeque61B<T> implements Deque61B<T> {
@@ -148,5 +150,39 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         return getRecursiveHelper(p.next, index - 1);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return this.helperEquals(obj);
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
+
+    private class LinkedListIterator implements Iterator<T> {
+        private Node current;
+
+        public LinkedListIterator() {
+            current = sentinel.next;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return current != sentinel;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = current.item;
+            current = current.next;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public String toString() {
+        return this.toList().toString();
+    }
 
 }

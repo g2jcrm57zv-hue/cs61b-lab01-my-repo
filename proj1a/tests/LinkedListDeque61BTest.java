@@ -1,6 +1,6 @@
 import jh61b.utils.Reflection;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static com.google.common.truth.Truth.assertThat;
 import static com.google.common.truth.Truth.assertWithMessage;
@@ -160,6 +160,23 @@ public class LinkedListDeque61BTest {
                 .that(lld1.toList())
                 .containsExactly(1, 2)
                 .inOrder();
+    }
+
+    @Test
+    public void testIterator() {
+        Deque61B<String> lld1 = new LinkedListDeque61B<>();
+        lld1.addFirst("first");
+        lld1.addLast("second");
+        lld1.addLast("last");
+
+        StringBuilder sb = new StringBuilder();
+
+        for (String s: lld1) {
+            sb.append(s).append(" ");
+        }
+        assertThat(sb.toString().trim()).isEqualTo("first second last");
+
+        assertThat(lld1).containsExactly("first", "second", "last").inOrder();
     }
 
 }

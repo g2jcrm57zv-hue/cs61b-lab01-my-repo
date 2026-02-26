@@ -1,10 +1,11 @@
 import java.util.List;
+import java.util.Iterator;
 
 /**
  * 由 hug 创建于 2017/2/4。
  * 方法已按建议的完成顺序排列。
  */
-public interface Deque61B<T> {
+public interface Deque61B<T> extends Iterable<T> {
 
     /**
      * 将 {@code x} 添加到双端队列的头部。假设 {@code x} 永不为 null。
@@ -75,4 +76,38 @@ public interface Deque61B<T> {
      * @return 双端队列中 {@code index} 处的元素
      */
     T getRecursive(int index);
+
+    Iterator<T> iterator();
+
+    default boolean helperEquals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Deque61B<?>)) {
+            return false;
+        }
+
+        Deque61B<?> other = (Deque61B<?>) o;
+
+        if (this.size() != other.size()) {
+            return false;
+        }
+
+        Iterator<T> myIterator = this.iterator();
+        Iterator<?> otherIterator = other.iterator();
+
+        while (myIterator.hasNext()) {
+            T myItem = myIterator.next();
+            Object otherItem = otherIterator.next();
+
+            if (myItem == null) {
+                if (otherItem != null) return false;
+            } else {
+                if (!myItem.equals(otherItem)) return false;
+            }
+        }
+
+        return true;
+    }
 }
