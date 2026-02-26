@@ -1,3 +1,4 @@
+import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import static java.lang.Math.floorMod;
@@ -97,4 +98,38 @@ public class ArrayDeque61B<T> implements Deque61B<T> {
     public T getRecursive(int index) {
         return null;
     }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayIterator();
+    }
+
+    private class ArrayIterator implements Iterator<T> {
+        private int wizPos;
+        private int itemsSeen;
+
+        public ArrayIterator() {
+            wizPos = (nextFirst + 1) % items.length;
+            itemsSeen = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return itemsSeen < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = items[wizPos];
+            wizPos = (wizPos + 1) % items.length;
+            itemsSeen += 1;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.helperEquals(obj);
+    }
+
 }
