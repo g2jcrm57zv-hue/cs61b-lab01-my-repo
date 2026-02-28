@@ -1,5 +1,137 @@
 package deque;
 
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
+import static java.lang.Math.floorMod;
+
 public class ArrayDeque61B<T> implements Deque61B<T> {
+
+    private int size;
+    private T[] items;
+    private int nextFirst;
+    private int nextLast;
+
+    public ArrayDeque61B(){
+        size = 0;
+        nextFirst = 0;
+        nextLast = 1;
+        items = (T[]) new Object[8];
+    }
+
+    @Override
+    public void addFirst(T x) {
+        items[nextFirst] = x;
+        nextFirst = floorMod(nextFirst - 1, items.length);
+        size += 1;
+    }
+
+    @Override
+    public void addLast(T x) {
+        items[nextLast] = x;
+        nextLast = floorMod(nextLast + 1, items.length);
+        size += 1;
+    }
+
+    @Override
+    public List<T> toList() {
+        List<T> returnList = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            returnList.add(this.get(i));
+        }
+        return returnList;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size==0;
+    }
+
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public T removeFirst() {
+        if (isEmpty()) {
+            return null;
+        }
+
+        int actualIndex = floorMod(nextFirst + 1, items.length);
+        T removedItem = items[actualIndex];
+
+        items[actualIndex] = null;
+
+        nextFirst = actualIndex;
+
+        size -= 1;
+
+        return removedItem;
+    }
+
+    @Override
+    public T removeLast() {
+        if (isEmpty()) {
+            return null;
+        }
+
+        int actualIndex = floorMod(nextLast - 1, items.length);
+        T removedItem = items[actualIndex];
+
+        items[actualIndex] = null;
+
+        nextLast = actualIndex;
+
+        size -= 1;
+
+        return removedItem;
+    }
+
+    @Override
+    public T get(int index) {
+        if (index >= size || index < 0){
+            return null;
+        }
+        return items[floorMod(index + nextFirst + 1, items.length)];
+    }
+
+    @Override
+    public T getRecursive(int index) {
+        throw new UnsupportedOperationException("No need to implement getRecursive for proj 1b");
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayIterator();
+    }
+
+    private class ArrayIterator implements Iterator<T> {
+        private int wizPos;
+        private int itemsSeen;
+
+        public ArrayIterator() {
+            wizPos = (nextFirst + 1) % items.length;
+            itemsSeen = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return itemsSeen < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = items[wizPos];
+            wizPos = (wizPos + 1) % items.length;
+            itemsSeen += 1;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return this.helperEquals(obj);
+    }
 
 }
