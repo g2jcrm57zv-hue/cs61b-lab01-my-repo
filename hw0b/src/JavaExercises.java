@@ -3,19 +3,19 @@ import java.util.List;
 
 public class JavaExercises {
 
-    /** Returns an array [1, 2, 3, 4, 5, 6] */
+    /** 返回一个数组 [1, 2, 3, 4, 5, 6] */
     public static int[] makeDice() {
-        // TODO: Fill in this function.
+        // TODO: 填充此函数。
         int[] arr1 = {1, 2, 3, 4, 5, 6};
         return arr1;
     }
 
-    /** Returns the order depending on the customer.
-     *  If the customer is Ergun, return ["beyti", "pizza", "hamburger", "tea"].
-     *  If the customer is Erik, return ["sushi", "pasta", "avocado", "coffee"].
-     *  In any other case, return an empty String[] of size 3. */
+    /** 根据顾客返回相应的订单。
+     *  如果顾客是 Ergun，返回 ["beyti", "pizza", "hamburger", "tea"]。
+     *  如果顾客是 Erik，返回 ["sushi", "pasta", "avocado", "coffee"]。
+     *  在其他任何情况下，返回一个大小为 3 的空 String 数组。 */
     public static String[] takeOrder(String customer) {
-        // TODO: Fill in this function.
+        // TODO: 填充此函数。
         String[] s1 = {"beyti", "pizza", "hamburger", "tea"};
         String[] s2 = {"sushi", "pasta", "avocado", "coffee"};
         String[] s3 = new String[3];
@@ -29,10 +29,10 @@ public class JavaExercises {
         }
     }
 
-    /** Returns the positive difference between the maximum element and minimum element of the given array.
-     *  Assumes array is nonempty. */
+    /** 返回给定数组中最大元素和最小元素之间的正差值。
+     *  假设数组非空。 */
     public static int findMinMax(int[] array) {
-        // TODO: Fill in this function.
+        // TODO: 填充此函数。
         int max_num = array[0];
         int min_num = array[0];
         for (int i = 1; i < array.length; i++) {
@@ -48,19 +48,19 @@ public class JavaExercises {
     }
 
     /**
-      * Uses recursion to compute the hailstone sequence as a list of integers starting from an input number n.
-      * Hailstone sequence is described as:
-      *    - Pick a positive integer n as the start
-      *        - If n is even, divide n by 2
-      *        - If n is odd, multiply n by 3 and add 1
-      *    - Continue this process until n is 1
-      */
+     * 使用递归计算从输入数字 n 开始的冰雹序列（Hailstone sequence），并将其作为整数列表返回。
+     * 冰雹序列描述如下：
+     *    - 选择一个正整数 n 作为开始
+     *        - 如果 n 是偶数，将 n 除以 2
+     *        - 如果 n 是奇数，将 n 乘以 3 并加 1
+     *    - 继续此过程，直到 n 变为 1
+     */
     public static List<Integer> hailstone(int n) {
         return hailstoneHelper(n, new ArrayList<>());
     }
 
     private static List<Integer> hailstoneHelper(int x, List<Integer> list) {
-        // TODO: Fill in this function.
+        // TODO: 填充此函数。
         list.add(x);
         if (x == 1){
             return list;

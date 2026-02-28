@@ -51,7 +51,7 @@ public class UnionFind {
 
     private void validate(int v) {
         if (v < 0 || v >= parents.length) {
-            throw new IllegalArgumentException(v + "is not a valid num");
+            throw new IllegalArgumentException(v + " is not a valid num");
         }
     }
 
@@ -73,11 +73,9 @@ public class UnionFind {
         if (s1 > s2) { // 3.如果v1所在集合为大树，则将v2的根节点连接至v1的根节点
             parents[loot2] = loot1;
             parents[loot1] = - (s1 + s2);
-        }else {
+        } else {
             parents[loot1] = loot2;
             parents[loot2] = - (s1 + s2);
         }
-
     }
-
 }
